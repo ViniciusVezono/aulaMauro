@@ -4,12 +4,14 @@ import 'package:sqlite3/sqlite3.dart';
 void main() async {
   final db = sqlite3.open('escola.db');
 
+  db.execute('PRAGMA foreign_keys = ON;');
+
   db.execute('''
     CREATE TABLE IF NOT EXISTS disciplinas (
       codigo TEXT PRIMARY KEY,
-      nome TEXT,
-      periodo INTEGER,
-      carga INTEGER
+      nome TEXT NOT NULL,
+      periodo INTEGER NOT NULL,
+      carga INTEGER NOT NULL
     );
   ''');
 
@@ -32,7 +34,7 @@ void main() async {
       request.response
         ..headers.contentType = ContentType.html
         ..write('''
-          <h1>Cadastrar Disciplina</h1>
+          <h1>Cadastro Disciplina</h1>
           <form action="/salvar">
             Código: <input name="codigo"><br>
             Nome: <input name="nome"><br>

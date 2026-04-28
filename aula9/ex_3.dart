@@ -4,10 +4,12 @@ import 'package:sqlite3/sqlite3.dart';
 void main() async {
   final db = sqlite3.open('escola.db');
 
+  db.execute('PRAGMA foreign_keys = ON;');
+
   db.execute('''
     CREATE TABLE IF NOT EXISTS alunos (
       prontuario TEXT PRIMARY KEY,
-      nome TEXT
+      nome TEXT NOT NULL
     );
   ''');
 
@@ -30,7 +32,7 @@ void main() async {
       request.response
         ..headers.contentType = ContentType.html
         ..write('''
-          <h1>Cadastrar Aluno</h1>
+          <h1>Cadastro Aluno</h1>
           <form action="/salvar">
             Prontuário: <input name="prontuario"><br>
             Nome: <input name="nome"><br>

@@ -4,6 +4,8 @@ import 'package:sqlite3/sqlite3.dart';
 void main() async {
   final db = sqlite3.open('escola.db');
 
+  db.execute('PRAGMA foreign_keys = ON;');
+
   final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 8083);
 
   await for (HttpRequest request in server) {
